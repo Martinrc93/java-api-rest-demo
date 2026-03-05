@@ -1,13 +1,7 @@
 package com.martinc.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,18 +11,20 @@ import java.util.List;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "sales")
 public class Sale {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     private LocalDate saleDate;
 
     private Double total;
 
-    private List<Product> listaProducts;
+    private List<Product> Products;
 
-    private Client client;
+    private Customer client;
 
 }

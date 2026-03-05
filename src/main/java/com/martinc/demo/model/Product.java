@@ -1,9 +1,6 @@
 package com.martinc.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -12,10 +9,12 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "products")
 public class Product {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     private String name;
@@ -24,5 +23,5 @@ public class Product {
 
     private Double price;
 
-    private Double stock;
+    private Long stock;
 }

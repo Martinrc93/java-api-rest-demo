@@ -22,16 +22,10 @@ public class ProductService implements  IProductService {
     @Override
     public ProductDTO saveProduct(ProductDTO product) {
 
-        Product productEntity = Product.builder()
-                .name(product.getName())
-                .brand(product.getBrand())
-                .price(product.getPrice())
-                .stock(product.getStock())
-                .build();
-
+        Product productEntity = productMapper.toEntity(product);
         productRepository.save(productEntity);
-
         return productMapper.toDto(productEntity);
+
     }
 
     @Override

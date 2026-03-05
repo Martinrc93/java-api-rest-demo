@@ -1,21 +1,23 @@
 package com.martinc.demo.dto;
 
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Getter @Setter
-public class ProductDTO {
+public record ProductDTO(
 
-    private Long id;
+        Long id,
+        @NotBlank(message = "El nombre es obligatorio")
+        @Size(max = 50, message = "El nombre no puede superar los 50 caracteres")
+        String name,
 
-    private String name;
+        @NotBlank(message = "La marca es obligatoria")
+        @Size(max = 50, message = "La marca no puede superar los 50 caracteres")
+        String brand,
 
-    private String brand;
+        @NotNull(message = "El precio es obligatorio")
+        Double price,
 
-    private Double price;
-
-    private Double stock;
-
-}
+        @NotNull(message = "El stock es obligatorio")
+        Long stock
+){}
