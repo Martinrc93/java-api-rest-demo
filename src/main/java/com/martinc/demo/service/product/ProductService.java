@@ -46,11 +46,10 @@ public class ProductService implements  IProductService {
 
     @Override
     public ProductDTO getProduct(Long id) {
-/*
-        Product product = productRepository.findById(id).get();
+
+        Product product = productRepository.findById(id).orElse(null);
         return productMapper.toDto(product);
-        */
-        return null;
+
     }
 
     @Override
