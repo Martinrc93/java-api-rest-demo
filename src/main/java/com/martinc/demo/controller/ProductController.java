@@ -35,6 +35,8 @@ public class ProductController {
     }
 
     @DeleteMapping("delete/")
-
+    public void deleteProduct(@RequestBody Long id){
+        productService.deleteProduct(id);
+    }
 
 }
