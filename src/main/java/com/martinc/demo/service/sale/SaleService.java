@@ -28,21 +28,28 @@ public class SaleService implements ISaleService{
 
     @Override
     public List<SaleDTO> sales() {
-        return List.of();
+
+        return saleRepository.findAll().stream().map(saleMapper::toDto).toList();
+
     }
 
     @Override
     public SaleDTO getSale(Long id) {
-        return null;
+        return saleRepository.findById(id).map(saleMapper::toDto).orElseThrow(() -> new RuntimeException("Sale not found " + id));
     }
 
     @Override
     public void deleteSale(Long id) {
-
+        saleRepository.deleteById(id);
     }
 
     @Override
     public SaleDTO updateSale(Long id, SaleDTO saleDTO) {
-        return null;
+
+        Sale existingSale = saleRepository.findById(id).orElseThrow(() -> new RuntimeException("Sale not found " + id));
+        saleMapper.updateEntityFromDto(saleDTO, existingSale);
+        saleRepository.save(existingSale);
+        return saleMapper.toDto(existingSale);
+
     }
 }

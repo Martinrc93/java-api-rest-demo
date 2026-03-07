@@ -5,12 +5,10 @@ import com.martinc.demo.dto.ProductDTO;
 import com.martinc.demo.mapper.ProductMapper;
 import com.martinc.demo.model.Product;
 import com.martinc.demo.repository.IProductRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
