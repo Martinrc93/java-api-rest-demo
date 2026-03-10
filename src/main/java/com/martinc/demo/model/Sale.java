@@ -8,8 +8,9 @@ import java.util.List;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Table(name = "sales")
 public class Sale {
@@ -23,8 +24,10 @@ public class Sale {
 
     private Double total;
 
-    private List<Product> Products;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Product> products;
 
+    @OneToOne
     private Customer client;
 
 }

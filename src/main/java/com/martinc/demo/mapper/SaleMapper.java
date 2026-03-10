@@ -9,9 +9,8 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface SaleMapper {
 
-    @Mapping(source = "saleDate", target = "saleDate", dateFormat = "yyyy-MM-dd")
-    @Mapping(source = "Products", target = "Products")
-
+    //@Mapping(source = "saleDate", target = "saleDate", dateFormat = "yyyy-MM-dd")
+    //@Mapping(source = "Products", target = "Products")
     SaleDTO toDto(Sale sale);
 
     Sale toEntity(SaleDTO saleDTO);

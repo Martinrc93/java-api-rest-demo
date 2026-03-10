@@ -2,6 +2,7 @@ package com.martinc.demo.service.product;
 
 
 import com.martinc.demo.dto.ProductDTO;
+import com.martinc.demo.exception.ResourceNotFoundException;
 import com.martinc.demo.mapper.ProductMapper;
 import com.martinc.demo.model.Product;
 import com.martinc.demo.repository.IProductRepository;
@@ -39,9 +40,10 @@ public class ProductService implements  IProductService {
     @Override
     public ProductDTO getProduct(Long id) {
 
-        Product product = productRepository.findById(id).orElse(null);
-        return productMapper.toDto(product);
+        Product product = productRepository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException("Product with id: " + id + " not found"));
 
+        return productMapper.toDto(product);
     }
 
     @Override

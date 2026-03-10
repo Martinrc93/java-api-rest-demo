@@ -3,16 +3,17 @@ package com.martinc.demo.controller;
 import com.martinc.demo.dto.SaleDTO;
 import com.martinc.demo.service.sale.ISaleService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/sales")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SaleController {
 
-    private  final ISaleService saleService;
+    private final ISaleService saleService;
 
     @GetMapping("/id")
     public SaleDTO getSale(@PathVariable Long id){

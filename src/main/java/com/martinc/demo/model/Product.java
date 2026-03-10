@@ -8,20 +8,23 @@ import lombok.*;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Table(name = "products")
 public class Product {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
     private Long id;
 
+    @Column(nullable = false, length = 30)
     private String name;
 
+    @Column(nullable = false, length = 50)
     private String brand;
 
+    @Column(nullable = false, precision = 2)
     private Double price;
 
-    private Long stock;
+    @Column(nullable = false)
+    private Long stock = 0L;
+
 }

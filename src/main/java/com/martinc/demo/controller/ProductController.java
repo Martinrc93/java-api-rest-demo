@@ -2,14 +2,16 @@ package com.martinc.demo.controller;
 
 import com.martinc.demo.dto.ProductDTO;
 import com.martinc.demo.service.product.IProductService;
-import lombok.AllArgsConstructor;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductController {
 
     private final IProductService productService;
@@ -25,17 +27,20 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ProductDTO createProduct(ProductDTO productDTO){
-        return productService.saveProduct(productDTO);
+    public ResponseEntity<ProductDTO> createProduct(@Valid @RequestBody ProductDTO productDTO){
+
+            ProductDTO product = productService.saveProduct(productDTO);
+            return ResponseEntity.ok(product);
+
     }
 
     @PutMapping("/update/{id}")
-    public ProductDTO updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO){
+    public ProductDTO updateProduct(@Valid @PathVariable Long id, @RequestBody ProductDTO productDTO){
         return productService.updateProduct(id, productDTO);
     }
 
     @DeleteMapping("delete/")
-    public void deleteProduct(@RequestBody Long id){
+    public void deleteProduct(@Valid @RequestBody Long id){
         productService.deleteProduct(id);
     }
 
