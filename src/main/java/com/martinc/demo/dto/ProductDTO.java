@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
+import java.math.BigDecimal;
+
 public record ProductDTO(
 
         Long id,
@@ -18,7 +20,7 @@ public record ProductDTO(
 
         @NotNull(message = "El precio es obligatorio")
         @Positive(message = "El precio debe ser mayor a 0")
-        Double price,
+        BigDecimal price,
 
         @NotNull(message = "El stock es obligatorio")
         Long stock

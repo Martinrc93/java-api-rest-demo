@@ -3,6 +3,7 @@ package com.martinc.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 
 @Entity
 @Getter @Setter
@@ -22,7 +23,7 @@ public class Product {
     private String brand;
 
     @Column(nullable = false, precision = 2)
-    private Double price;
+    private BigDecimal price;
 
     @Column(nullable = false)
     private Long stock = 0L;

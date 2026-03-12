@@ -7,18 +7,23 @@ import com.martinc.demo.mapper.ProductMapper;
 import com.martinc.demo.model.Product;
 import com.martinc.demo.repository.IProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ProductService implements  IProductService {
 
     private final IProductRepository productRepository;
     private final ProductMapper productMapper;
 
     @Override
+    @Transactional
     public ProductDTO saveProduct(ProductDTO product) {
 
         Product productEntity = productMapper.toEntity(product);
@@ -28,13 +33,11 @@ public class ProductService implements  IProductService {
     }
 
     @Override
-    public List<ProductDTO> products() {
+    public Page<ProductDTO> products (Pageable pageable) {
 
-        List<ProductDTO> listProducts;
-        List<Product> products = productRepository.findAll();
-        listProducts = products.stream().map(productMapper::toDto).toList();
+        Page<Product> productsEntity = productRepository.findAll(pageable);
+        return productsEntity.map(productMapper::toDto);
 
-        return listProducts;
     }
 
     @Override
@@ -47,20 +50,24 @@ public class ProductService implements  IProductService {
     }
 
     @Override
+    @Transactional
     public void deleteProduct(Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Product with id: " + id + " not found");
+        }
         productRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public ProductDTO updateProduct(Long id, ProductDTO product) {
-        if ( this.getProduct(id) != null){
 
-            Product productEntity = productMapper.toEntity(product);
-            productRepository.save(productEntity);
-            return productMapper.toDto(productEntity);
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
 
-        }else{
-            return null;
-        }
+        productMapper.updateEntityFromDto(product, existingProduct);
+        Product savedProduct = productRepository.save(existingProduct);
+
+        return productMapper.toDto(savedProduct);
     }
 }
