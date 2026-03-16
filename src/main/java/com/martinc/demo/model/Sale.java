@@ -24,10 +24,11 @@ public class Sale {
 
     private Double total;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Product> products;
+    @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER , cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SaleDetail> saleDetails;
 
-    @OneToOne
-    private Customer client;
+    @ManyToOne()
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
 }

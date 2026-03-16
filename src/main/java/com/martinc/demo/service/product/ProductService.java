@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,9 +32,9 @@ public class ProductService implements  IProductService {
     }
 
     @Override
-    public Page<ProductDTO> products (Pageable pageable) {
+    public Page<ProductDTO> products (Pageable pageable, Long minStock) {
 
-        Page<Product> productsEntity = productRepository.findAll(pageable);
+        Page<Product> productsEntity = productRepository.findByStockLessThan(pageable, minStock);
         return productsEntity.map(productMapper::toDto);
 
     }
@@ -70,4 +69,19 @@ public class ProductService implements  IProductService {
 
         return productMapper.toDto(savedProduct);
     }
+
+    @Override
+    public boolean discountStockById(Long id, Long stock) {
+
+        Product product = productRepository.getById(id);
+
+            if(product.getStock() - stock >= 0){
+                product.setStock(product.getStock()-stock);
+                productRepository.save(product);
+                return true;
+            }else{
+                return false;
+            }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.martinc.demo.controller;
 
+import com.martinc.demo.dto.ProductDTO;
 import com.martinc.demo.dto.SaleDTO;
 import com.martinc.demo.service.sale.ISaleService;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,7 @@ public class SaleController {
 
     private final ISaleService saleService;
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public SaleDTO getSale(@PathVariable Long id){
         return saleService.getSale(id);
     }
@@ -24,6 +25,13 @@ public class SaleController {
     public List<SaleDTO> listSale(){
         return saleService.sales();
     }
+
+    /*
+    @GetMapping("/products/{id}")
+    public List<ProductDTO> listSaleProducts(@PathVariable Long id){
+        return saleService.saleDetail(id);
+    }
+    */
 
     @PostMapping("/create")
     public SaleDTO createSale(@RequestBody SaleDTO saleDTO){

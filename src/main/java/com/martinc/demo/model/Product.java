@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -22,10 +23,12 @@ public class Product {
     @Column(nullable = false, length = 50)
     private String brand;
 
-    @Column(nullable = false, precision = 2)
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
     @Column(nullable = false)
     private Long stock = 0L;
 
+    @OneToMany(mappedBy = "product")
+    private List<SaleDetail> saleDetails;
 }

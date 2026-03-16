@@ -10,8 +10,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/products")
 @RequiredArgsConstructor
@@ -25,8 +23,11 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    public Page<ProductDTO> productDTOList(@PageableDefault(page = 0, size = 10) Pageable pageable){
-        return productService.products(pageable);
+    public ResponseEntity<Page<ProductDTO>> productDTOList(@PageableDefault(page = 0, size = 10) Pageable pageable,
+                                                           @RequestParam(required = false) Long minStock){
+
+        return ResponseEntity.ok(productService.products(pageable, minStock));
+
     }
 
     @PostMapping("/create")

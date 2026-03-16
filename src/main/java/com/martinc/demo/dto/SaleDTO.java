@@ -1,25 +1,23 @@
 package com.martinc.demo.dto;
 
-import com.martinc.demo.model.Customer;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-
+import java.time.LocalDate;
 import java.util.List;
 
 public record SaleDTO(
-
-        @NotBlank
         Long id,
 
-        @NotBlank
-        String saleDate,
+        LocalDate saleDate,
 
-        @NotBlank
+        @NotNull(message = "El total no puede ser nulo")
         Double total,
 
-        @NotNull
-        List<ProductDTO> Products,
+        @NotNull(message = "El cliente no puede ser nulo")
+        CustomerDTO customer,
 
-        @NotNull
-        Customer client
-) { }
+        @Valid
+        @NotNull(message = "La lista de detalles no puede ser nula")
+        List<SaleDetailDTO> details
+) {
+}
