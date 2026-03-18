@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -26,12 +27,10 @@ public class SaleController {
         return saleService.sales();
     }
 
-    /*
-    @GetMapping("/products/{id}")
-    public List<ProductDTO> listSaleProducts(@PathVariable Long id){
-        return saleService.saleDetail(id);
+    @GetMapping("/date/{date}")
+    public List<SaleDTO> listSaleDate(@PathVariable LocalDate date){
+        return saleService.saleDate(date);
     }
-    */
 
     @PostMapping("/create")
     public SaleDTO createSale(@RequestBody SaleDTO saleDTO){

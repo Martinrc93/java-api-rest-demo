@@ -7,14 +7,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-
 @Mapper(componentModel = "spring", uses = {SaleDetailMapper.class, CustomerMapper.class})
 public interface SaleMapper {
 
-    @Mapping(source = "saleDetails", target = "details")
+    @Mapping(target = "saleDetails", source = "saleDetails")
     SaleDTO toDto(Sale sale);
 
-    @Mapping(source = "details", target = "saleDetails")
+    @Mapping(target = "saleDetails", source = "saleDetails")
     Sale toEntity(SaleDTO saleDTO);
 
     @AfterMapping

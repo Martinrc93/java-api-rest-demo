@@ -3,6 +3,7 @@ package com.martinc.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Sale {
 
     private LocalDate saleDate;
 
-    private Double total;
+    private BigDecimal total;
 
     @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER , cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SaleDetail> saleDetails;

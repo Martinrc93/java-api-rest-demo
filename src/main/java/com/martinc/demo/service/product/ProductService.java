@@ -48,6 +48,12 @@ public class ProductService implements  IProductService {
         return productMapper.toDto(product);
     }
 
+    public Product getProductEntity(Long id) {
+
+        return productRepository.getById(id);
+
+    }
+
     @Override
     @Transactional
     public void deleteProduct(Long id) {
@@ -70,18 +76,18 @@ public class ProductService implements  IProductService {
         return productMapper.toDto(savedProduct);
     }
 
+    @Transactional
     @Override
-    public boolean discountStockById(Long id, Long stock) {
+    public void discountStockById(Long id, Long stock) {
 
-        Product product = productRepository.getById(id);
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
 
-            if(product.getStock() - stock >= 0){
-                product.setStock(product.getStock()-stock);
-                productRepository.save(product);
-                return true;
-            }else{
-                return false;
-            }
+        try {
+            product.setStock(product.getStock()-stock);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

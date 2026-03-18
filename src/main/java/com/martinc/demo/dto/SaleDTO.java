@@ -18,6 +18,6 @@ public record SaleDTO(
 
         @Valid
         @NotNull(message = "La lista de detalles no puede ser nula")
-        List<SaleDetailDTO> details
+        List<SaleDetailDTO> saleDetails
 ) {
 }

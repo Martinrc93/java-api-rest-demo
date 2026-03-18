@@ -12,6 +12,6 @@ public interface IProductService {
     ProductDTO getProduct(Long id);
     void deleteProduct(Long id);
     ProductDTO updateProduct(Long id, ProductDTO product);
-    boolean discountStockById(Long id, Long stock);
+    void  discountStockById(Long id, Long stock);
 
 }
